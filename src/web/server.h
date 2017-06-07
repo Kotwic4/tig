@@ -1,7 +1,7 @@
 #ifndef TIG_SERVER_H
 #define TIG_SERVER_H
 
-#include "common.h"
+#include "../util/common.h"
 #include "web.h"
 
 int server(int argc, char *argv[]);

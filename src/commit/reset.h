@@ -1,7 +1,7 @@
 #ifndef TIG_RESET_H
 #define TIG_RESET_H
 
-#include "common.h"
+#include "../util/common.h"
 
 int reset(int argc, char *argv[]);
 

@@ -1,7 +1,7 @@
 #ifndef TIG_CHECKOUT_H
 #define TIG_CHECKOUT_H
 
-#include "common.h"
+#include "../util/common.h"
 
 int checkout(int argc, char *argv[]);
 

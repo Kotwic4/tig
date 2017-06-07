@@ -1,8 +1,8 @@
 #include <sstream>
 #include <sys/stat.h>
 #include "commit.h"
-#include "status.h"
-#include "config.h"
+#include "../util/status.h"
+#include "../util/config.h"
 
 int commit(int argc, char *argv[]){
     Vector<FileStatus> status = stageStatus();

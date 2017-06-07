@@ -1,6 +1,6 @@
 #include <fcntl.h>
 #include "add.h"
-#include "diff.h"
+#include "../util/diff.h"
 
 int add(int argc, char *argv[]){
     if(argc < 1){

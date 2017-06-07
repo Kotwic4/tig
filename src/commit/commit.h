@@ -1,7 +1,7 @@
 #ifndef TIG_COMMIT_H
 #define TIG_COMMIT_H
 
-#include "common.h"
+#include "../util/common.h"
 
 int commit(int argc, char *argv[]);
 

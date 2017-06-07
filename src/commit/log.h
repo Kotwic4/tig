@@ -1,7 +1,7 @@
 #ifndef TIG_LOG_H
 #define TIG_LOG_H
 
-#include "common.h"
+#include "../util/common.h"
 
 int log(int argc, char *argv[]);
 

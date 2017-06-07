@@ -1,21 +1,21 @@
 #include <functional>
 #include <map>
 
-#include "add.h"
-#include "checkout.h"
-#include "clone.h"
-#include "commit.h"
-#include "common.h"
-#include "config.h"
-#include "diff.h"
-#include "help.h"
-#include "init.h"
-#include "log.h"
-#include "pull.h"
-#include "push.h"
-#include "reset.h"
-#include "server.h"
-#include "status.h"
+#include "commit/add.h"
+#include "commit/checkout.h"
+#include "web/clone.h"
+#include "commit/commit.h"
+#include "util/common.h"
+#include "util/config.h"
+#include "util/diff.h"
+#include "util/help.h"
+#include "util/init.h"
+#include "commit/log.h"
+#include "web/pull.h"
+#include "web/push.h"
+#include "commit/reset.h"
+#include "web/server.h"
+#include "util/status.h"
 
 int main(int argc, char *argv[])
 {
