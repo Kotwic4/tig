@@ -3,15 +3,21 @@
 
 #include "common.h"
 
-int config(int argc, char *argv[]);
-
-struct UserConfig{
+struct GlobalConfig{
     std::string name;
     std::string email;
 };
 
-struct Config{
-    struct UserConfig userConfig;
+struct LocalConfig{
+    std::string name;
+    std::string email;
 };
+
+GlobalConfig getGlobalConfig();
+LocalConfig getLocalConfig();
+
+int config(int argc, char *argv[]);
+
+
 
 #endif //TIG_CONFIG_H

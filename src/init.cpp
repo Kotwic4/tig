@@ -8,7 +8,7 @@
 
 int init(int argc, char *argv[]){
 
-    if( !file_exists(MAIN_DIR.c_str()) ) {
+    if( !checkIfRepository() ) {
         if(mkdir(MAIN_DIR.c_str(),DEFAULT_PERM)==-1){
             perror("mkdir");
             exit(EXIT_FAILURE);

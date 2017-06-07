@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 const std::string MAIN_DIR = "./.tig";
 
 const std::string HEAD = MAIN_DIR + "/HEAD.txt";
 const std::string LOG = MAIN_DIR + "/LOG.txt";
 
-const std::string GLOBAL_CONFIG = "~/CONFIG.txt";
 const std::string LOCAL_CONFIG = MAIN_DIR + "/CONFIG.txt";
 
 
@@ -25,5 +25,12 @@ std::string hash(std::string str);
 bool file_exists(const char * filename);
 
 enum StatusEnum { added, removed, modified, none};
+
+std::vector<std::string> read_all_lines(const char * filename);
+void copy(const char *source,const char *dest);
+
+std::string last_commit_hash();
+bool checkIfRepository();
+std::string getTime();
 
 #endif //TIG_COMMON_H
