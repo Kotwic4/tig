@@ -5,8 +5,8 @@
 #include "status.h"
 #include "diff.h"
 
-std::vector<std::string> ls(const char * dir_name){
-    std::vector<std::string> result;
+Vector<String> ls(const char * dir_name){
+    Vector<String> result;
     DIR *mydir = opendir(dir_name);
     if(mydir != NULL){
         char buf[512];
@@ -16,7 +16,7 @@ std::vector<std::string> ls(const char * dir_name){
             sprintf(buf, "%s/%s",".", myfile->d_name);
             stat(buf, &sb);
             if(S_ISREG(sb.st_mode)){
-                std::string s = myfile->d_name;
+                String s = myfile->d_name;
                 result.push_back(s);
             }
         }
@@ -24,25 +24,25 @@ std::vector<std::string> ls(const char * dir_name){
     return result;
 }
 
-FileStatus initFileStatus(std::string filename,StatusEnum status){
+FileStatus initFileStatus(String filename,StatusEnum status){
     FileStatus fileStatus;
     fileStatus.filename = filename;
     fileStatus.status = status;
     return fileStatus;
 }
 
-std::vector<FileStatus> diffStatus(std::string new_dir,std::string old_dir){
-    std::vector<FileStatus> result;
-    std::vector<std::string> new_files = ls(new_dir.c_str());
-    std::vector<std::string> old_files = ls(old_dir.c_str());
+Vector<FileStatus> diffStatus(String new_dir,String old_dir){
+    Vector<FileStatus> result;
+    Vector<String> new_files = ls(new_dir.c_str());
+    Vector<String> old_files = ls(old_dir.c_str());
     sort(new_files.begin(),new_files.end());
     sort(old_files.begin(),old_files.end());
     int i = 0;
     int j = 0;
     while(i < new_files.size() && j < old_files.size()){
         if(new_files[i] == old_files[j]){
-            std::string file1 = new_dir + "/" + new_files[i];
-            std::string file2 = old_dir + "/" + old_files[j];
+            String file1 = new_dir + "/" + new_files[i];
+            String file2 = old_dir + "/" + old_files[j];
             if(diff_files(file1,file2).size()>0){
                 FileStatus fileStatus = initFileStatus(new_files[i],modified);
                 result.push_back(fileStatus);
@@ -76,19 +76,19 @@ std::vector<FileStatus> diffStatus(std::string new_dir,std::string old_dir){
     return result;
 }
 
-std::vector<FileStatus> workStatus(){
-    std::string new_dir = ".";
-    std::vector<FileStatus> result = diffStatus(new_dir,STAGE_FILES_DIR);
+Vector<FileStatus> workStatus(){
+    String new_dir = ".";
+    Vector<FileStatus> result = diffStatus(new_dir,STAGE_FILES_DIR);
     return result;
 }
 
-std::vector<FileStatus> stageStatus(){
-    std::string old_dir = COMMITS_DIR + "/" + last_commit_hash() + "/FILES";
-    std::vector<FileStatus> result = diffStatus(STAGE_FILES_DIR,old_dir);
+Vector<FileStatus> stageStatus(){
+    String old_dir = COMMITS_DIR + "/" + last_commit_hash() + "/FILES";
+    Vector<FileStatus> result = diffStatus(STAGE_FILES_DIR,old_dir);
     return result;
 }
 
-std::string strStatus(std::vector<FileStatus> result){
+String strStatus(Vector<FileStatus> result){
     std::stringstream ss;
     for(int i = 0; i < result.size();i++){
         switch(result[i].status){
@@ -103,18 +103,18 @@ std::string strStatus(std::vector<FileStatus> result){
                 break;
             case none:break;
         }
-        ss << result[i].filename << std::endl;
+        ss << result[i].filename << Endl;
     }
     return ss.str();
 }
 
 int status(int argc, char *argv[]){
-    std::vector<FileStatus> result;
+    Vector<FileStatus> result;
     printf("staged:\n");
     result = stageStatus();
-    std::cout << strStatus(result);
+    Cout << strStatus(result);
     result = workStatus();
     printf("\nnot staged:\n");
-    std::cout << strStatus(result);
+    Cout << strStatus(result);
     return 0;
 }

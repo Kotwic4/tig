@@ -1,6 +1,6 @@
 #include "help.h"
 
-const int command_number = 13;
+const int command_number = 14;
 const char* commands[] = {
         "add",
         "checkout",
@@ -14,6 +14,7 @@ const char* commands[] = {
         "pull",
         "push",
         "reset",
+        "server",
         "status"};
 
 int help(int argc, char *argv[]){

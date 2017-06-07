@@ -5,28 +5,28 @@ int diff(int argc, char *argv[]){
         printf("diff need 2 or more arguments\n");
     }
     else{
-        std::vector<DiffLine> diff_lines = diff_files(argv[0],argv[1]);
+        Vector<DiffLine> diff_lines = diff_files(argv[0],argv[1]);
         for(int i = 0; i < diff_lines.size(); i++){
             switch(diff_lines[i].status_enum){
                 case added:
-                    std::cout << "A ";
+                    Cout << "A ";
                     break;
                 case removed:
-                    std::cout << "R ";
+                    Cout << "R ";
                     break;
                 case modified:break;
                 case none:break;
             }
-            std::cout << diff_lines[i].line_number << " " << diff_lines[i].line;
+            Cout << diff_lines[i].line_number << " " << diff_lines[i].line;
         }
     }
     return 0;
 }
 
-std::vector<DiffLine> diff_files(std::string new_filename, std::string old_filename){
-    std::vector<std::string> lines1 = read_all_lines(new_filename.c_str());
-    std::vector<std::string> lines2 = read_all_lines(old_filename.c_str());
-    std::vector<DiffLine> result;
+Vector<DiffLine> diff_files(String new_filename, String old_filename){
+    Vector<String> lines1 = read_all_lines(new_filename.c_str());
+    Vector<String> lines2 = read_all_lines(old_filename.c_str());
+    Vector<DiffLine> result;
     int i = 0;
     int j = 0;
     while(i < lines1.size() and j < lines2.size()){
@@ -64,7 +64,7 @@ std::vector<DiffLine> diff_files(std::string new_filename, std::string old_filen
     return result;
 }
 
-DiffLine init_diff_line(StatusEnum status_enum,int line_number, std::string line){
+DiffLine init_diff_line(StatusEnum status_enum,int line_number, String line){
     DiffLine diff_line;
     diff_line.status_enum = status_enum;
     diff_line.line_number = line_number;

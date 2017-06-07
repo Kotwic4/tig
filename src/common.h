@@ -4,33 +4,42 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctime>
+#include <sstream>
+#include <unistd.h>
+#include <vector>
 
-const std::string MAIN_DIR = "./.tig";
+#define String std::string
+#define Vector std::vector
+#define Cout std::cout
+#define Cin std::cin
+#define Endl std::endl
 
-const std::string HEAD = MAIN_DIR + "/HEAD.txt";
-const std::string LOG = MAIN_DIR + "/LOG.txt";
+const String MAIN_DIR = "./.tig";
 
-const std::string LOCAL_CONFIG = MAIN_DIR + "/CONFIG.txt";
+const String HEAD = MAIN_DIR + "/HEAD.txt";
+const String LOG = MAIN_DIR + "/LOG.txt";
+
+const String LOCAL_CONFIG = MAIN_DIR + "/CONFIG.txt";
 
 
-const std::string STAGE_DIR = MAIN_DIR + "/STAGE";
-const std::string STAGE_FILES_DIR = STAGE_DIR + "/FILES";
-const std::string STAGE_SUM = STAGE_DIR + "/SUM.txt";
+const String STAGE_DIR = MAIN_DIR + "/STAGE";
+const String STAGE_FILES_DIR = STAGE_DIR + "/FILES";
+const String STAGE_SUM = STAGE_DIR + "/SUM.txt";
 
-const std::string COMMITS_DIR = MAIN_DIR + "/COMMITS";
+const String COMMITS_DIR = MAIN_DIR + "/COMMITS";
 
 const mode_t DEFAULT_PERM = 0777;
-
-std::string hash(std::string str);
-bool file_exists(const char * filename);
-
 enum StatusEnum { added, removed, modified, none};
 
-std::vector<std::string> read_all_lines(const char * filename);
-void copy(const char *source,const char *dest);
 
-std::string last_commit_hash();
+
+String hash(String str);
+bool file_exists(const char * filename);
+Vector<String> read_all_lines(const char * filename);
+void copy(const char *source,const char *dest);
+String last_commit_hash();
 bool checkIfRepository();
-std::string getTime();
+String getTime();
 
 #endif //TIG_COMMON_H

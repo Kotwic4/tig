@@ -7,16 +7,16 @@
 struct DiffLine{
     StatusEnum status_enum;
     int line_number;
-    std::string line;
+    String line;
 };
 
 int diff(int argc, char *argv[]);
 
-std::vector<std::string> read_all_lines(FILE* file);
+Vector<String> read_all_lines(FILE* file);
 
-std::vector<DiffLine> diff_files(std::string new_filename, std::string old_filename);
+Vector<DiffLine> diff_files(String new_filename, String old_filename);
 
-DiffLine init_diff_line(StatusEnum status_enum,int line_number, std::string line);
+DiffLine init_diff_line(StatusEnum status_enum,int line_number, String line);
 
 
 

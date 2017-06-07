@@ -4,15 +4,15 @@
 #include "common.h"
 
 struct FileStatus{
-    std::string filename;
+    String filename;
     StatusEnum status;
 };
 
 int status(int argc, char *argv[]);
-std::vector<std::string> ls(const char * dir_name);\
-std::vector<FileStatus> stageStatus();
-std::vector<FileStatus> workStatus();
-std::vector<FileStatus> diffStatus(std::string new_dir,std::string old_dir);
-std::string strStatus(std::vector<FileStatus> result);
+Vector<String> ls(const char * dir_name);\
+Vector<FileStatus> stageStatus();
+Vector<FileStatus> workStatus();
+Vector<FileStatus> diffStatus(String new_dir,String old_dir);
+String strStatus(Vector<FileStatus> result);
 
 #endif //TIG_STATUS_H

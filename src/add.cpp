@@ -7,15 +7,15 @@ int add(int argc, char *argv[]){
         printf("add need 1 or more arguments\n");
     }
     else{
-        std::string source = argv[0];
-        std::string destination = STAGE_FILES_DIR + "/" + source;
+        String source = argv[0];
+        String destination = STAGE_FILES_DIR + "/" + source;
         if(!file_exists(destination.c_str())){
             if(creat(destination.c_str(),DEFAULT_PERM)==-1){
                 perror("creat");
                 exit(EXIT_FAILURE);
             }
         }
-        std::vector<DiffLine> result = diff_files(source,destination);
+        Vector<DiffLine> result = diff_files(source,destination);
         if(result.size()>0){
             printf("Added %s\n",source.c_str());
             source = "./" + source;

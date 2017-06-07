@@ -2,7 +2,7 @@
 #include <cstring>
 #include "config.h"
 
-const std::string GLOBAL_CONFIG = std::string(getenv("HOME")) + "/CONFIG.txt";
+const String GLOBAL_CONFIG = String(getenv("HOME")) + "/CONFIG.txt";
 
 GlobalConfig getGlobalConfig(){
     GlobalConfig globalConfig;
@@ -30,16 +30,16 @@ GlobalConfig getGlobalConfig(){
         fclose(file);
         printf("Global config setted");
     }
-    std::vector<std::string> list = read_all_lines(GLOBAL_CONFIG.c_str());
+    Vector<String> list = read_all_lines(GLOBAL_CONFIG.c_str());
     for(int i =0 ;i < list.size();i++){
         char type[100];
         char value[100];
         sscanf(list[i].c_str(), "%s = %s\n", type, value);
         if(strcmp(type,"user.name")==0){
-            globalConfig.name = std::string(value);
+            globalConfig.name = String(value);
         }
         else if(strcmp(type,"user.email")==0){
-            globalConfig.email = std::string(value);
+            globalConfig.email = String(value);
         }
     }
     return globalConfig;
@@ -50,16 +50,16 @@ LocalConfig getLocalConfig(){
     LocalConfig localConfig;
     localConfig.email = globalConfig.email;
     localConfig.name = globalConfig.name;
-    std::vector<std::string> list = read_all_lines(LOCAL_CONFIG.c_str());
+    Vector<String> list = read_all_lines(LOCAL_CONFIG.c_str());
     for(int i =0 ;i < list.size();i++){
         char type[100];
         char value[100];
         sscanf(list[i].c_str(), "%s = %s\n", type, value);
         if(strcmp(type,"user.name")==0){
-            localConfig.name = std::string(value);
+            localConfig.name = String(value);
         }
         else if(strcmp(type,"user.email")==0){
-            localConfig.email = std::string(value);
+            localConfig.email = String(value);
         }
     }
     return localConfig;

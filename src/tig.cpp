@@ -14,6 +14,7 @@
 #include "pull.h"
 #include "push.h"
 #include "reset.h"
+#include "server.h"
 #include "status.h"
 
 int main(int argc, char *argv[])
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
         help(0,NULL);
     }
     else{
-        std::string str = argv[1];
+        String str = argv[1];
         int call_argc = argc-2;
         char **call_argv = argv+2;
         if(str == "add"){
@@ -64,6 +65,9 @@ int main(int argc, char *argv[])
         }
         else if(str == "status"){
             status(call_argc,call_argv);
+        }
+        else if(str == "server"){
+            server(call_argc,call_argv);
         }
         else {
             printf("Unknown command\n Use tig help for help\n");

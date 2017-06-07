@@ -4,13 +4,13 @@
 #include "common.h"
 
 struct GlobalConfig{
-    std::string name;
-    std::string email;
+    String name;
+    String email;
 };
 
 struct LocalConfig{
-    std::string name;
-    std::string email;
+    String name;
+    String email;
 };
 
 GlobalConfig getGlobalConfig();

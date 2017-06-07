@@ -1,6 +1,6 @@
 #include "clone.h"
 
 int clone(int argc, char *argv[]){
-    printf("Not defined clone yet\n");
+    client(argc,argv);
     return 0;
 }
