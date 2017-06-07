@@ -24,4 +24,6 @@ const mode_t DEFAULT_PERM = 0777;
 std::string hash(std::string str);
 bool file_exists(const char * filename);
 
+enum StatusEnum { added, removed, modified, none};
+
 #endif //TIG_COMMON_H
