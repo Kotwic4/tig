@@ -4,13 +4,47 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <string>
+#include <fcntl.h>
 
 int init(int argc, char *argv[]){
-    if( access(DIR_NAME.c_str(), F_OK ) == -1 ) {
-        if(mkdir(DIR_NAME.c_str(),0777)==-1){
+
+    if( !file_exists(MAIN_DIR.c_str()) ) {
+        if(mkdir(MAIN_DIR.c_str(),DEFAULT_PERM)==-1){
             perror("mkdir");
             exit(EXIT_FAILURE);
         }
+        if(mkdir(STAGE_DIR.c_str(),DEFAULT_PERM)==-1){
+            perror("mkdir");
+            exit(EXIT_FAILURE);
+        }
+        if(mkdir(STAGE_FILES_DIR.c_str(),DEFAULT_PERM)==-1){
+            perror("mkdir");
+            exit(EXIT_FAILURE);
+        }
+        if(mkdir(COMMITS_DIR.c_str(),DEFAULT_PERM)==-1){
+            perror("mkdir");
+            exit(EXIT_FAILURE);
+        }
+        if(creat(HEAD.c_str(),DEFAULT_PERM)==-1){
+            perror("creat");
+            exit(EXIT_FAILURE);
+        }
+        if(creat(LOG.c_str(),DEFAULT_PERM)==-1){
+            perror("creat");
+            exit(EXIT_FAILURE);
+        }
+        if(creat(LOCAL_CONFIG.c_str(),DEFAULT_PERM)==-1){
+            perror("creat");
+            exit(EXIT_FAILURE);
+        }
+        if(creat(STAGE_SUM.c_str(),DEFAULT_PERM)==-1){
+            perror("creat");
+            exit(EXIT_FAILURE);
+        }
     }
+    else{
+        printf("tig repository already initialized\n");
+    }
+
     return 0;
 }
