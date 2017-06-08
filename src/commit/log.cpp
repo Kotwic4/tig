@@ -1,6 +1,5 @@
 #include "log.h"
 
-int log(int argc, char *argv[]){
-    printf("Not defined log yet\n");
-    return 0;
+void log(){
+    Cout << read_all_lines_one(LOG.c_str());
 }

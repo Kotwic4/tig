@@ -2,7 +2,9 @@
 #define TIG_RESET_H
 
 #include "../util/common.h"
+#include <fcntl.h>
+#include "../util/diff.h"
 
-int reset(int argc, char *argv[]);
+void reset(int argc, char *argv[]);
 
 #endif //TIG_RESET_H

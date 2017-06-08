@@ -2,7 +2,9 @@
 #define TIG_ADD_H
 
 #include "../util/common.h"
+#include <fcntl.h>
+#include "../util/diff.h"
 
-int add(int argc, char *argv[]);
+void add(int argc, char *argv[]);
 
 #endif //TIG_ADD_H

@@ -3,6 +3,6 @@
 
 #include "../util/common.h"
 
-int log(int argc, char *argv[]);
+void log();
 
 #endif //TIG_LOG_H

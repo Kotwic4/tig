@@ -4,7 +4,7 @@
 #include "../util/status.h"
 #include "../util/config.h"
 
-int commit(int argc, char *argv[]){
+void commit(int argc, char *argv[]){
     Vector<FileStatus> status = stageStatus();
     if(status.size()==0){
         printf("Nothing to commit\n");
@@ -24,8 +24,6 @@ int commit(int argc, char *argv[]){
     String destination_dir = COMMITS_DIR + "/" + new_hash;
 
     mkdir(destination_dir.c_str(),DEFAULT_PERM);
-    destination_dir += "/FILES";
-    mkdir(destination_dir.c_str(),DEFAULT_PERM);
     Vector<String> files = ls(STAGE_DIR.c_str());
     for(int i = 0; i < files.size();i++){
         String dest = destination_dir + "/" + files[i];
@@ -43,6 +41,4 @@ int commit(int argc, char *argv[]){
     fprintf(file,"Create by name:%s email:%s\n",globalConfig.name.c_str(),globalConfig.email.c_str());
     fprintf(file,"On:%s\n\n",time.c_str());
     fclose(file);
-
-    return 0;
 }
