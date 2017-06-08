@@ -2,7 +2,8 @@
 #define TIG_PULL_H
 
 #include "../util/common.h"
+#include "client.h"
 
-int pull(int argc, char *argv[]);
+void pull(int argc, char *argv[]);
 
 #endif //TIG_PULL_H

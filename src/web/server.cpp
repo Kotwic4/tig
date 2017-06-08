@@ -1,8 +1,5 @@
 #include "server.h"
-
-#include <sys/epoll.h>
-
-#define N 100
+#include "../util/status.h"
 
 int server_port;
 int web_sock;
@@ -52,6 +49,48 @@ void server_quit(int sig){
     exit(EXIT_SUCCESS);
 }
 
+void server_push(int fd, Msg msg) {
+    while(msg.type != MSG_END){
+        recv(fd, &msg, sizeof(msg), MSG_WAITALL);
+        printf("%s\n",msg.buf);
+    }
+}
+
+void server_pull(int fd, Msg msg) {
+    fileToMsg(HEAD,msg);
+    msg.type = MSG_PULL;
+    send(fd,&msg,sizeof(msg),0);
+    recv(fd, &msg, sizeof(msg), MSG_WAITALL);
+    if(msg.type == MSG_END) return;
+    String client_hash = msg.buf2;
+    Vector<String> server_hashes = read_all_lines(HEAD.c_str());
+    fileToMsg(HEAD,msg);
+    msg.type = MSG_PULL;
+    send(fd,&msg,sizeof(msg),0);
+    fileToMsg(LOG,msg);
+    send(fd,&msg,sizeof(msg),0);
+    int i = 0;
+    if(client_hash != ""){
+        while(client_hash != server_hashes[i]){
+            i++;
+        }
+        i++;
+    }
+    while(i<server_hashes.size()){
+        String dir = COMMITS_DIR + "/" + deleteEndl(server_hashes[i]) + "/";
+        Vector<String> files = ls(dir.c_str());
+        for(int j = 0; j < files.size();j++){
+            String file = dir + files[j];
+            fileToMsg(file,msg);
+            msg.type = MSG_PULL;
+            send(fd,&msg,sizeof(msg),0);
+        }
+        i++;
+    }
+    msg.type = MSG_END;
+    send(fd,&msg,sizeof(msg),0);
+}
+
 int server(int argc, char *argv[]){
     if(argc < 1){
         printf("Need port number\n");
@@ -76,10 +115,10 @@ int server(int argc, char *argv[]){
         Msg msg;
         recv(fd, &msg, sizeof(msg), MSG_WAITALL);
         if(msg.type == MSG_PULL){
-            while(msg.type != MSG_END){
-                recv(fd, &msg, sizeof(msg), MSG_WAITALL);
-                printf("%s\n",msg.buf);
-            }
+            server_pull(fd, msg);
+        }
+        if(msg.type == MSG_PUSH){
+            server_push(fd, msg);
         }
         close(fd);
     }

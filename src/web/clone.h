@@ -2,8 +2,9 @@
 #define TIG_CLONE_H
 
 #include "../util/common.h"
-#include "client.h"
+#include "../util/init.h"
+#include "pull.h"
 
-int clone(int argc, char *argv[]);
+void clone(int argc, char *argv[]);
 
 #endif //TIG_CLONE_H

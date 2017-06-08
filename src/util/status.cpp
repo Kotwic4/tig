@@ -6,11 +6,11 @@ Vector<String> ls(const char * dir_name){
     if(mydir != NULL){
         char buf[512];
         struct dirent *myfile;
-        struct stat sb;
         while((myfile = readdir(mydir)) != NULL){
-            sprintf(buf, "%s/%s",".", myfile->d_name);
+            struct stat sb;
+            sprintf(buf, "%s/%s",dir_name, myfile->d_name);
             stat(buf, &sb);
-            if(S_ISREG(sb.st_mode)){
+            if(!S_ISDIR(sb.st_mode)!=0){\
                 String s = myfile->d_name;
                 result.push_back(s);
             }

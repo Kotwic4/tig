@@ -14,14 +14,18 @@ void add(int argc, char *argv[]){
                     perror("creat");
                     exit(EXIT_FAILURE);
                 }
-            }
-            Vector<DiffLine> result = diff_files(source,destination);
-            if(result.size()>0){
                 printf("Added %s\n",source.c_str());
                 copy(source.c_str(),destination.c_str());
             }
             else{
-                printf("Nothing to add\n");
+                Vector<DiffLine> result = diff_files(source,destination);
+                if(result.size()>0){
+                    printf("Added %s\n",source.c_str());
+                    copy(source.c_str(),destination.c_str());
+                }
+                else{
+                    printf("Nothing to add\n");
+                }
             }
         }
         else{

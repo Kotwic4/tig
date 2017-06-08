@@ -1,6 +1,6 @@
 #include "clone.h"
 
-int clone(int argc, char *argv[]){
-    client(argc,argv);
-    return 0;
+void clone(int argc, char *argv[]){
+    init();
+    pull(argc,argv);
 }

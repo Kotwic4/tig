@@ -24,6 +24,7 @@ Vector<String> read_all_lines(const char * filename){
     }
     free(line_buf);
     line_buf=NULL;
+    fclose(file);
     return lines;
 }
 
@@ -94,4 +95,11 @@ String hashToDir(String hash_code){
         return ".";
     }
     return COMMITS_DIR + "/" + hash_code;
+}
+
+String deleteEndl(String s){
+    if (!s.empty() && s[s.length()-1] == '\n') {
+        s.erase(s.length()-1);
+    }
+    return s;
 }

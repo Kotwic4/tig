@@ -15,9 +15,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/types.h>
+#include "../util/common.h"
 
 enum MsgType {
-    MSG_OK,
     MSG_PULL,
     MSG_PUSH,
     MSG_END};
@@ -27,5 +27,8 @@ struct Msg{
     char buf[MSG_BUF];
     char buf2[MSG_BUF];
 };
+
+void fileToMsg(String filename, Msg &msg);
+Vector<String> msgToStrings(char * msg_buf);
 
 #endif //TIG_WEB_H

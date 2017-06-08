@@ -34,6 +34,7 @@ bool checkIfRepository();
 Vector<String> read_all_lines(const char * filename);
 void copy(const char *source,const char *dest);
 String hashToDir(String hash_code);
+String deleteEndl(String s);
 
 
 #endif //TIG_COMMON_H

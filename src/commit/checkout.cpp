@@ -14,13 +14,16 @@ void checkout(int argc, char *argv[]){
                     perror("creat");
                     exit(EXIT_FAILURE);
                 }
-            }
-            Vector<DiffLine> result = diff_files(source,destination);
-            if(result.size()>0){
                 copy(source.c_str(),destination.c_str());
             }
             else{
-                printf("Nothing to checkout\n");
+                Vector<DiffLine> result = diff_files(source,destination);
+                if(result.size()>0){
+                    copy(source.c_str(),destination.c_str());
+                }
+                else{
+                    printf("Nothing to checkout\n");
+                }
             }
         }
         else{
