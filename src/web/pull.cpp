@@ -56,13 +56,13 @@ void pull(int argc, char *argv[]){
             }
         }
         String dir = COMMITS_DIR + "/" + deleteEndl(last_commit_hash()) + "/";
-        Cout << dir << Endl;
         Vector<String> files = ls(dir.c_str());
-        Cout << files.size() << Endl;
         for(int k = 0; k < files.size();k++){
             String source = dir + files[k];
             Cout << source << Endl;
             String destination = STAGE_DIR + "/" + files[k];
+            copy(source.c_str(),destination.c_str());
+            destination = "./" + files[k];
             copy(source.c_str(),destination.c_str());
         }
     }
