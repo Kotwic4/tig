@@ -17,11 +17,10 @@ const char* commands[] = {
         "server",
         "status"};
 
-int help(int argc, char *argv[]){
+void help(){
     printf("Usage: tig <command> [<args>]\n");
     printf("List of commands:\n");
     for(int i = 0; i < command_number; i++){
         printf("%s\n",commands[i]);
     }
-    return 0;
 }

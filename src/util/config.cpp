@@ -26,7 +26,7 @@ GlobalConfig getGlobalConfig(){
         fprintf(file,"user.name = %s\n",name);
         fprintf(file,"user.email = %s\n",email);
         fclose(file);
-        printf("Global config setted");
+        printf("Global config setted\n");
     }
     Vector<String> list = read_all_lines(GLOBAL_CONFIG.c_str());
     for(int i =0 ;i < list.size();i++){

@@ -1,12 +1,6 @@
 #include "init.h"
 
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <string>
-#include <fcntl.h>
-
-int init(int argc, char *argv[]){
+void init(){
 
     if( !checkIfRepository() ) {
         if(mkdir(MAIN_DIR.c_str(),DEFAULT_PERM)==-1){
@@ -33,6 +27,4 @@ int init(int argc, char *argv[]){
     else{
         printf("tig repository already initialized\n");
     }
-
-    return 0;
 }

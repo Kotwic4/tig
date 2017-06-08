@@ -12,7 +12,6 @@
 #define String std::string
 #define Vector std::vector
 #define Cout std::cout
-#define Cin std::cin
 #define Endl std::endl
 
 const String MAIN_DIR = "./.tig";

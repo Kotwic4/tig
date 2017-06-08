@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-int help(int argc, char *argv[]);
+void help();
 
 #endif //TIG_HELP_H

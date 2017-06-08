@@ -2,7 +2,12 @@
 #define TIG_INIT_H
 
 #include "common.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <string>
+#include <fcntl.h>
 
-int init(int argc, char *argv[]);
+void init();
 
 #endif //TIG_INIT_H

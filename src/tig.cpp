@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
 
     if(argc == 1){
-        help(0,NULL);
+        help();
     }
     else{
         String str = argv[1];
@@ -46,13 +46,13 @@ int main(int argc, char *argv[])
             diff(call_argc,call_argv);
         }
         else if(str == "help"){
-            help(call_argc,call_argv);
+            help();
         }
         else if(str == "init"){
-            init(call_argc,call_argv);
+            init();
         }
         else if(str == "log"){
-            log(call_argc,call_argv);
+            log();
         }
         else if(str == "pull"){
             pull(call_argc,call_argv);
