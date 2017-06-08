@@ -17,10 +17,6 @@ int init(int argc, char *argv[]){
             perror("mkdir");
             exit(EXIT_FAILURE);
         }
-        if(mkdir(STAGE_FILES_DIR.c_str(),DEFAULT_PERM)==-1){
-            perror("mkdir");
-            exit(EXIT_FAILURE);
-        }
         if(mkdir(COMMITS_DIR.c_str(),DEFAULT_PERM)==-1){
             perror("mkdir");
             exit(EXIT_FAILURE);
@@ -30,14 +26,6 @@ int init(int argc, char *argv[]){
             exit(EXIT_FAILURE);
         }
         if(creat(LOG.c_str(),DEFAULT_PERM)==-1){
-            perror("creat");
-            exit(EXIT_FAILURE);
-        }
-        if(creat(LOCAL_CONFIG.c_str(),DEFAULT_PERM)==-1){
-            perror("creat");
-            exit(EXIT_FAILURE);
-        }
-        if(creat(STAGE_SUM.c_str(),DEFAULT_PERM)==-1){
             perror("creat");
             exit(EXIT_FAILURE);
         }

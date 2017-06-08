@@ -1,9 +1,4 @@
-#include <dirent.h>
-#include <sys/stat.h>
-#include <algorithm>
-#include <sstream>
 #include "status.h"
-#include "diff.h"
 
 Vector<String> ls(const char * dir_name){
     Vector<String> result;
@@ -78,13 +73,13 @@ Vector<FileStatus> diffStatus(String new_dir,String old_dir){
 
 Vector<FileStatus> workStatus(){
     String new_dir = ".";
-    Vector<FileStatus> result = diffStatus(new_dir,STAGE_FILES_DIR);
+    Vector<FileStatus> result = diffStatus(new_dir,STAGE_DIR);
     return result;
 }
 
 Vector<FileStatus> stageStatus(){
-    String old_dir = COMMITS_DIR + "/" + last_commit_hash() + "/FILES";
-    Vector<FileStatus> result = diffStatus(STAGE_FILES_DIR,old_dir);
+    String old_dir = COMMITS_DIR + "/" + last_commit_hash() + "/";
+    Vector<FileStatus> result = diffStatus(STAGE_DIR,old_dir);
     return result;
 }
 
@@ -108,13 +103,12 @@ String strStatus(Vector<FileStatus> result){
     return ss.str();
 }
 
-int status(int argc, char *argv[]){
+void status(){
     Vector<FileStatus> result;
     printf("staged:\n");
     result = stageStatus();
     Cout << strStatus(result);
     result = workStatus();
-    printf("\nnot staged:\n");
+    printf("not staged:\n");
     Cout << strStatus(result);
-    return 0;
 }

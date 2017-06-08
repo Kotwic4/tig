@@ -8,7 +8,7 @@ int add(int argc, char *argv[]){
     }
     else{
         String source = argv[0];
-        String destination = STAGE_FILES_DIR + "/" + source;
+        String destination = STAGE_DIR + "/" + source;
         if(!file_exists(destination.c_str())){
             if(creat(destination.c_str(),DEFAULT_PERM)==-1){
                 perror("creat");

@@ -29,11 +29,14 @@ Vector<String> read_all_lines(const char * filename){
 
 String read_all_lines_one(const char * filename){
     Vector<String> lines = read_all_lines(filename);
-
+    String result = "";
+    for(int i = 0; i < lines.size();i++){
+        result += lines[i];
+    }
+    return result;
 }
 
-void copy(const char *source, const char *dest)
-{
+void copy(const char *source, const char *dest) {
     FILE* file1 = fopen(source, "r");
     if(file1 == NULL){
         perror("file1");
@@ -81,4 +84,14 @@ String getTime(){
 
     strftime(buffer,sizeof(buffer),"%d-%m-%Y %I:%M:%S",timeinfo);
     return String(buffer);
+}
+
+String hashToDir(String hash_code){
+    if(hash_code == "Stage"){
+        return STAGE_DIR;
+    }
+    if(hash_code == "Work"){
+        return ".";
+    }
+    return COMMITS_DIR + "/" + hash_code;
 }

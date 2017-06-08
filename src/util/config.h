@@ -2,22 +2,16 @@
 #define TIG_CONFIG_H
 
 #include "common.h"
+#include <fcntl.h>
+#include <cstring>
 
 struct GlobalConfig{
     String name;
     String email;
 };
 
-struct LocalConfig{
-    String name;
-    String email;
-};
-
 GlobalConfig getGlobalConfig();
-LocalConfig getLocalConfig();
 
-int config(int argc, char *argv[]);
-
-
+void config();
 
 #endif //TIG_CONFIG_H

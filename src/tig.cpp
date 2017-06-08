@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
             commit(call_argc,call_argv);
         }
         else if(str == "config"){
-            config(call_argc,call_argv);
+            config();
         }
         else if(str == "diff"){
             diff(call_argc,call_argv);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
             reset(call_argc,call_argv);
         }
         else if(str == "status"){
-            status(call_argc,call_argv);
+            status();
         }
         else if(str == "server"){
             server(call_argc,call_argv);

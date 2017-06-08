@@ -1,5 +1,3 @@
-#include <fcntl.h>
-#include <cstring>
 #include "config.h"
 
 const String GLOBAL_CONFIG = String(getenv("HOME")) + "/CONFIG.txt";
@@ -45,42 +43,8 @@ GlobalConfig getGlobalConfig(){
     return globalConfig;
 }
 
-LocalConfig getLocalConfig(){
+void config(){
     GlobalConfig globalConfig = getGlobalConfig();
-    LocalConfig localConfig;
-    localConfig.email = globalConfig.email;
-    localConfig.name = globalConfig.name;
-    Vector<String> list = read_all_lines(LOCAL_CONFIG.c_str());
-    for(int i =0 ;i < list.size();i++){
-        char type[100];
-        char value[100];
-        sscanf(list[i].c_str(), "%s = %s\n", type, value);
-        if(strcmp(type,"user.name")==0){
-            localConfig.name = String(value);
-        }
-        else if(strcmp(type,"user.email")==0){
-            localConfig.email = String(value);
-        }
-    }
-    return localConfig;
+    printf("user.name = %s\n",globalConfig.name.c_str());
+    printf("user.email = %s\n",globalConfig.email.c_str());
 }
-
-int config(int argc, char *argv[]){
-    if(argc < 1 || strcmp(argv[0],"global")){
-        GlobalConfig globalConfig = getGlobalConfig();
-        printf("user.name = %s\n",globalConfig.name.c_str());
-        printf("user.email = %s\n",globalConfig.email.c_str());
-    }
-    else{
-        if(checkIfRepository()){
-            LocalConfig localConfig = getLocalConfig();
-            printf("user.name = %s\n",localConfig.name.c_str());
-            printf("user.email = %s\n",localConfig.email.c_str());
-        }
-        else{
-            printf("Not in tig repository\n");
-        }
-    }
-    return 0;
-}
-

@@ -1,26 +1,11 @@
 #include "diff.h"
 
-int diff(int argc, char *argv[]){
-    if(argc < 2){
-        printf("diff need 2 or more arguments\n");
-    }
-    else{
-        Vector<DiffLine> diff_lines = diff_files(argv[0],argv[1]);
-        for(int i = 0; i < diff_lines.size(); i++){
-            switch(diff_lines[i].status_enum){
-                case added:
-                    Cout << "A ";
-                    break;
-                case removed:
-                    Cout << "R ";
-                    break;
-                case modified:break;
-                case none:break;
-            }
-            Cout << diff_lines[i].line_number << " " << diff_lines[i].line;
-        }
-    }
-    return 0;
+DiffLine init_diff_line(StatusEnum status_enum,int line_number, String line){
+    DiffLine diff_line;
+    diff_line.status_enum = status_enum;
+    diff_line.line_number = line_number;
+    diff_line.line = line;
+    return diff_line;
 }
 
 Vector<DiffLine> diff_files(String new_filename, String old_filename){
@@ -64,10 +49,39 @@ Vector<DiffLine> diff_files(String new_filename, String old_filename){
     return result;
 }
 
-DiffLine init_diff_line(StatusEnum status_enum,int line_number, String line){
-    DiffLine diff_line;
-    diff_line.status_enum = status_enum;
-    diff_line.line_number = line_number;
-    diff_line.line = line;
-    return diff_line;
+void printDiffLines(Vector<DiffLine> diff_lines){
+    for(int i = 0; i < diff_lines.size(); i++){
+        switch(diff_lines[i].status_enum){
+            case added:
+                Cout << "A ";
+                break;
+            case removed:
+                Cout << "R ";
+                break;
+            case modified:break;
+            case none:break;
+        }
+        Cout << diff_lines[i].line_number << " " << diff_lines[i].line;
+    }
+}
+
+int diff(int argc, char *argv[]){
+    if(argc < 2){
+        printf("diff need 2 or more arguments\n");
+        exit(EXIT_FAILURE);
+    }
+    String new_dir = hashToDir(argv[0]);
+    String old_dir = hashToDir(argv[1]);
+    if (argc < 3){
+        Vector<FileStatus> status = diffStatus(new_dir, old_dir);
+        Cout << strStatus(status);
+    } else{
+        new_dir += "/";
+        new_dir += argv[2];
+        old_dir += "/";
+        old_dir += argv[2];
+        Vector<DiffLine> diff_lines = diff_files(new_dir,old_dir);
+        printDiffLines(diff_lines);
+    }
+    return 0;
 }
