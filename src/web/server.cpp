@@ -1,5 +1,6 @@
 #include "server.h"
 #include "../util/status.h"
+#include "../util/common.h"
 
 int server_port;
 int web_sock;
@@ -50,9 +51,58 @@ void server_quit(int sig){
 }
 
 void server_push(int fd, Msg msg) {
-    while(msg.type != MSG_END){
-        recv(fd, &msg, sizeof(msg), MSG_WAITALL);
-        printf("%s\n",msg.buf);
+    Vector<String> client_hashes = msgToStrings(msg.buf2);
+    Vector<String> server_hashes = read_all_lines(HEAD.c_str());
+    int i = 0;
+    int j = 0;
+    while(i < client_hashes.size() && j < server_hashes.size()){
+        if(client_hashes[i] == server_hashes[i]){
+            i++;
+            j++;
+        }
+        else{
+            msg.type = MSG_END;
+            send(fd,&msg,sizeof(msg),0);
+            return;
+        }
+    }
+    if(i < client_hashes.size()){
+        if(i == 0){
+            strcpy(msg.buf2,"");
+        }
+        else{
+            strcpy(msg.buf2,client_hashes[i-1].c_str());
+        }
+        while(i < client_hashes.size()){
+            String s = COMMITS_DIR + "/" +  deleteEndl(client_hashes[i]);
+            mkdir(s.c_str(),DEFAULT_PERM);
+            i++;
+        }
+        send(fd,&msg,sizeof(msg),0);
+        if(recv(fd, &msg, sizeof(msg), MSG_WAITALL) == -1){
+            perror("recv");
+            exit(EXIT_FAILURE);
+        }
+        while(msg.type != MSG_END){
+            printf("%s\n",msg.buf);
+            FILE * file = fopen(msg.buf,"w");
+            fprintf(file,"%s",msg.buf2);
+            fclose(file);
+            if(recv(fd, &msg, sizeof(msg), MSG_WAITALL) == -1){
+                perror("recv");
+                exit(EXIT_FAILURE);
+            }
+        }
+        String dir = COMMITS_DIR + "/" + deleteEndl(last_commit_hash()) + "/";
+        Vector<String> files = ls(dir.c_str());
+        for(int k = 0; k < files.size();k++){
+            String source = dir + files[k];
+            Cout << source << Endl;
+            String destination = STAGE_DIR + "/" + files[k];
+            copy(source.c_str(),destination.c_str());
+            destination = "./" + files[k];
+            copy(source.c_str(),destination.c_str());
+        }
     }
 }
 
