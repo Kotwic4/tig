@@ -8,6 +8,7 @@ void push(int argc, char *argv[]){
     int port = atoi(argv[0]);
     char *address = argv[1];
     int sock = client_start(port,address);
+
     Msg msg;
     fileToMsg(HEAD,msg);
     msg.type = MSG_PUSH;
